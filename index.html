@@ -49,11 +49,12 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: var(--color-primary);
+            color: var(--color-accent);
             text-decoration: none;
             display: flex;
             align-items: center;
             background: white;
+            z-index: 1001;
         }
 
         /* Hamburger Menu */
@@ -64,13 +65,14 @@
             width: 30px;
             height: 25px;
             justify-content: space-between;
+            z-index: 1001;
         }
 
         .hamburger span {
             display: block;
             height: 3px;
             width: 100%;
-            background: var(--color-primary);
+            background: var(--color-accent);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
@@ -113,9 +115,10 @@
             position: relative;
         }
 
+        /* SOLID ORANGE BACKGROUND ON HOVER AND ACTIVE */
         .nav-links a:hover {
-            color: var(--color-primary);
-            background: rgba(0, 102, 255, 0.05);
+            color: white;
+            background: var(--color-accent);
         }
 
         .nav-links a.active {
@@ -240,7 +243,7 @@
 
         .btn-secondary:hover {
             background: white;
-            color: var(--color-primary);
+            color: var(--color-accent);
         }
 
         .carousel-indicators {
@@ -840,6 +843,18 @@
                 border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             }
 
+            /* Ensure active page still has SOLID ORANGE background on mobile */
+            .nav-links a.active {
+                color: white;
+                background: var(--color-accent);
+            }
+
+            /* SOLID ORANGE on hover for mobile too */
+            .nav-links a:hover {
+                color: white;
+                background: var(--color-accent);
+            }
+
             .hero {
                 padding-top: 70px;
             }
@@ -1336,18 +1351,20 @@
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
             
-            hamburger.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
                 });
-            });
+                
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    });
+                });
+            }
         });
 
         // Carousel functionality
@@ -1356,86 +1373,95 @@
             const indicators = document.querySelectorAll('.carousel-indicator');
             const prevBtn = document.querySelector('.carousel-arrow.prev');
             const nextBtn = document.querySelector('.carousel-arrow.next');
-            let currentSlide = 0;
-            const slideCount = slides.length;
             
-            // Function to show a specific slide
-            function showSlide(index) {
-                // Remove active class from all slides and indicators
-                slides.forEach(slide => slide.classList.remove('active'));
-                indicators.forEach(indicator => indicator.classList.remove('active'));
+            if (slides.length > 0) {
+                let currentSlide = 0;
+                const slideCount = slides.length;
                 
-                // Add active class to current slide and indicator
-                slides[index].classList.add('active');
-                indicators[index].classList.add('active');
-                
-                currentSlide = index;
-            }
-            
-            // Function to show next slide
-            function nextSlide() {
-                let nextSlide = (currentSlide + 1) % slideCount;
-                showSlide(nextSlide);
-            }
-            
-            // Function to show previous slide
-            function prevSlide() {
-                let prevSlide = (currentSlide - 1 + slideCount) % slideCount;
-                showSlide(prevSlide);
-            }
-            
-            // Auto-advance slides every 5 seconds
-            function autoAdvance() {
-                nextSlide();
-            }
-            
-            // Set up auto-advance
-            let slideInterval = setInterval(autoAdvance, 5000);
-            
-            // Add click event to indicators
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    clearInterval(slideInterval);
-                    showSlide(index);
-                    slideInterval = setInterval(autoAdvance, 5000);
-                });
-            });
-            
-            // Add click events to arrow buttons
-            prevBtn.addEventListener('click', () => {
-                clearInterval(slideInterval);
-                prevSlide();
-                slideInterval = setInterval(autoAdvance, 5000);
-            });
-            
-            nextBtn.addEventListener('click', () => {
-                clearInterval(slideInterval);
-                nextSlide();
-                slideInterval = setInterval(autoAdvance, 5000);
-            });
-            
-            // Pause auto-advance on hover
-            const carouselContainer = document.querySelector('.carousel-container');
-            carouselContainer.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-            
-            carouselContainer.addEventListener('mouseleave', () => {
-                slideInterval = setInterval(autoAdvance, 5000);
-            });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    clearInterval(slideInterval);
-                    prevSlide();
-                    slideInterval = setInterval(autoAdvance, 5000);
-                } else if (e.key === 'ArrowRight') {
-                    clearInterval(slideInterval);
-                    nextSlide();
-                    slideInterval = setInterval(autoAdvance, 5000);
+                // Function to show a specific slide
+                function showSlide(index) {
+                    // Remove active class from all slides and indicators
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    indicators.forEach(indicator => indicator.classList.remove('active'));
+                    
+                    // Add active class to current slide and indicator
+                    slides[index].classList.add('active');
+                    indicators[index].classList.add('active');
+                    
+                    currentSlide = index;
                 }
-            });
+                
+                // Function to show next slide
+                function nextSlide() {
+                    let nextSlide = (currentSlide + 1) % slideCount;
+                    showSlide(nextSlide);
+                }
+                
+                // Function to show previous slide
+                function prevSlide() {
+                    let prevSlide = (currentSlide - 1 + slideCount) % slideCount;
+                    showSlide(prevSlide);
+                }
+                
+                // Auto-advance slides every 5 seconds
+                function autoAdvance() {
+                    nextSlide();
+                }
+                
+                // Set up auto-advance
+                let slideInterval = setInterval(autoAdvance, 5000);
+                
+                // Add click event to indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        clearInterval(slideInterval);
+                        showSlide(index);
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    });
+                });
+                
+                // Add click events to arrow buttons
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        clearInterval(slideInterval);
+                        prevSlide();
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    });
+                }
+                
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        clearInterval(slideInterval);
+                        nextSlide();
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    });
+                }
+                
+                // Pause auto-advance on hover
+                const carouselContainer = document.querySelector('.carousel-container');
+                if (carouselContainer) {
+                    carouselContainer.addEventListener('mouseenter', () => {
+                        clearInterval(slideInterval);
+                    });
+                    
+                    carouselContainer.addEventListener('mouseleave', () => {
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    });
+                }
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        clearInterval(slideInterval);
+                        prevSlide();
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    } else if (e.key === 'ArrowRight') {
+                        clearInterval(slideInterval);
+                        nextSlide();
+                        slideInterval = setInterval(autoAdvance, 5000);
+                    }
+                });
+            }
         });
 
         // Smooth scrolling for navigation links
@@ -1454,13 +1480,15 @@
 
         // Pause animation on hover for logos
         const logosTrack = document.querySelector('.logos-track');
-        logosTrack.addEventListener('mouseenter', () => {
-            logosTrack.style.animationPlayState = 'paused';
-        });
-        
-        logosTrack.addEventListener('mouseleave', () => {
-            logosTrack.style.animationPlayState = 'running';
-        });
+        if (logosTrack) {
+            logosTrack.addEventListener('mouseenter', () => {
+                logosTrack.style.animationPlayState = 'paused';
+            });
+            
+            logosTrack.addEventListener('mouseleave', () => {
+                logosTrack.style.animationPlayState = 'running';
+            });
+        }
 
         // Highlight current page in navigation
         function setActivePage() {
