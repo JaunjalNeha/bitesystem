@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIT ELECTRONIC SYSTEM - Premier Tech Training & Project Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === BLUE, ORANGE & BLACK COLOR THEME === */
+        :root {
+            --color-primary: #0066FF;   /* Bright Blue */
+            --color-accent: #FF6600;    /* Bright Orange */
+            --color-dark: #000000;      /* Black */
+            --color-light: #F8F9FA;     /* Light Background */
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--color-light);
+            color: var(--color-dark);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === NAVIGATION WITH ORANGE HIGHLIGHT ONLY === */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            z-index: 1000;
+            height: 70px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            background: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            flex: 1;
+            height: 100%;
+        }
+
+        .nav-links li {
+            flex: 1;
+            height: 100%;
+        }
+
+        .nav-links a {
+            color: var(--color-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background: white;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+            background: rgba(0, 102, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: white;
+            background: var(--color-accent);
+        }
+
+        /* === HERO SECTION WITH CAROUSEL === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+
+        .carousel-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+            position: relative;
+            z-index: 3;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent);
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: #FF8533;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--color-primary);
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: var(--color-accent);
+            transform: scale(1.2);
+        }
+
+        /* Carousel Navigation Arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--color-accent);
+        }
+
+        .carousel-arrow.prev {
+            left: 20px;
+        }
+
+        .carousel-arrow.next {
+            right: 20px;
+        }
+
+        /* === SECTIONS === */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--color-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* === EXECUTIVE SUMMARY === */
+        .executive-summary {
+            background: var(--color-light);
+        }
+
+        .summary-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .summary-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .key-point {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .key-point h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* === SERVICES SECTION === */
+        .services {
+            background: var(--color-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .service-card:hover .service-icon {
+            color: var(--color-accent);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .service-card ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-card li:before {
+            content: "•";
+            color: var(--color-accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .service-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-link:hover {
+            color: #FF8533;
+        }
+
+        /* === PROJECT SUPPORT SECTION === */
+        .project-support {
+            background: var(--card-bg);
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .support-card {
+            background: var(--color-light);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--color-accent);
+        }
+
+        .support-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* === USP SECTION === */
+        .usp {
+            background: var(--color-light);
+        }
+
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .usp-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .usp-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        /* === REVENUE MODEL === */
+        .revenue-model {
+            background: var(--card-bg);
+        }
+
+        .revenue-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .revenue-card {
+            background: var(--color-light);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .revenue-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* === VISION SECTION === */
+        .vision {
+            background: var(--color-light);
+        }
+
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .vision-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* === MOVING LOGOS SECTION === */
+        .partners {
+            padding: 4rem 5%;
+            background: var(--card-bg);
+            overflow: hidden;
+        }
+
+        .partners-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--color-primary);
+        }
+
+        .logos-container {
+            position: relative;
+            height: 120px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .logos-track {
+            display: flex;
+            position: absolute;
+            left: 0;
+            align-items: center;
+            justify-content: space-around;
+            gap: 3rem;
+            animation: scroll 30s linear infinite;
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .logo-item:hover .logo-img {
+            filter: grayscale(0%);
+        }
+
+        .logo-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-dark);
+            font-weight: 500;
+        }
+
+        /* === STATS SECTION === */
+        .stats {
+            padding: 4rem 5%;
+            background: var(--color-primary);
+            text-align: center;
+            margin: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* === CONTACT SECTION === */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--color-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info h3 {
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            color: var(--color-accent);
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+            min-width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .map-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .map-placeholder {
+            background: #f0f0f0;
+            border-radius: 8px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-dark);
+            font-weight: 500;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--color-dark);
+            padding: 3rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 2rem;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 1200px) {
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .logo {
+                padding: 1rem;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                min-height: 60px;
+            }
+
+            .hero {
+                padding-top: 140px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-arrow.prev {
+                left: 10px;
+            }
+            
+            .carousel-arrow.next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.php" class="logo">BIT ELECTRONIC SYSTEM</a>
+        <ul class="nav-links">
+            <li><a href="index.php" class="active">Home</a></li>
+            <li><a href="liveprojects.php">Live Projects</a></li>
+            <li><a href="academic_projects.php">Academic Projects</a></li>
+            <li><a href="training.php">Training</a></li>
+            <li><a href="internships.php">Internships</a></li>
+            <li><a href="seminars.php">Seminars</a></li>
+            <li><a href="industrial-visit.php">Industrial Visit</a></li>
+            <li><a href="placements.php">Placements</a></li>
+            <li><a href="achievements.php">Achievements</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero" id="home">
+        <div class="carousel-container">
+            <!-- Carousel Slides -->
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1581094794329-cd0adaa422e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')"></div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1581094794329-cd0adaa422e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')"></div>
+            
+            <!-- Overlay for better text readability -->
+            <div class="carousel-overlay"></div>
+            
+            <!-- Carousel Navigation Arrows -->
+            <button class="carousel-arrow prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-arrow next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="hero-content">
+            <h1>BIT ELECTRONIC SYSTEM</h1>
+            <div class="tagline">Baramati</div>
+            <p>Premier practical training and innovative project development hub in Industrial Automation (PLC), Embedded Systems, IoT, Python, ML, DL & Artificial Intelligence.</p>
+            <p><strong>Empowering Tomorrow's Innovators</strong></p>
+            <div class="cta-buttons">
+                <a href="training.php" class="btn btn-primary">Explore Our Training Programs</a>
+                <a href="academic_projects.php" class="btn btn-secondary">View Project Center</a>
+            </div>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <div class="carousel-indicator active" data-slide="0"></div>
+            <div class="carousel-indicator" data-slide="1"></div>
+            <div class="carousel-indicator" data-slide="2"></div>
+            <div class="carousel-indicator" data-slide="3"></div>
+        </div>
+    </section>
+
+    <!-- Executive Summary Section -->
+    <section class="executive-summary">
+        <h2 class="section-title">Executive Summary</h2>
+        <div class="summary-content">
+            <p>Bit Electronic System, led by experienced engineers, aims to be Baramati's leading training and project center in PLC, Embedded Systems, IoT and AI. Our unique approach emphasizes hands-on learning, deep domain expertise, and fostering innovation.</p>
+            
+            <div class="key-points">
+                <div class="key-point">
+                    <h3>Expert-Led Training</h3>
+                    <p>Dedicated experts for each core domain (PLC, Embedded, AI).</p>
+                </div>
+                <div class="key-point">
+                    <h3>Practical, Hands-On Approach</h3>
+                    <p>Commitment to fostering innovation and industry readiness.</p>
+                </div>
+                <div class="key-point">
+                    <h3>Diverse Revenue Streams</h3>
+                    <p>Course fees, project consultation, and strategic collaborations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moving Logos Section -->
+    <section class="partners">
+        <h2 class="partners-title">Trusted by Leading Companies</h2>
+        <div class="logos-container">
+            <div class="logos-track">
+                <!-- First set of logos -->
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="logo-img">
+                    <span class="logo-name">Amazon</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="logo-img">
+                    <span class="logo-name">Microsoft</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="logo-img">
+                    <span class="logo-name">Apple</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" class="logo-img">
+                    <span class="logo-name">IBM</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="logo-img">
+                    <span class="logo-name">Google</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Intel_logo_2023.svg" alt="Intel" class="logo-img">
+                    <span class="logo-name">Intel</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Infosys_logo.svg" alt="Infosys" class="logo-img">
+                    <span class="logo-name">Infosys</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Tata_Consultancy_Services_Logo.svg" alt="TCS" class="logo-img">
+                    <span class="logo-name">TCS</span>
+                </div>
+                
+                <!-- Duplicate set for seamless scrolling -->
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="logo-img">
+                    <span class="logo-name">Amazon</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="logo-img">
+                    <span class="logo-name">Microsoft</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="logo-img">
+                    <span class="logo-name">Apple</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" class="logo-img">
+                    <span class="logo-name">IBM</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="logo-img">
+                    <span class="logo-name">Google</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Intel_logo_2023.svg" alt="Intel" class="logo-img">
+                    <span class="logo-name">Intel</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Infosys_logo.svg" alt="Infosys" class="logo-img">
+                    <span class="logo-name">Infosys</span>
+                </div>
+                <div class="logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Tata_Consultancy_Services_Logo.svg" alt="TCS" class="logo-img">
+                    <span class="logo-name">TCS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Specialized Services</h2>
+        <p class="section-subtitle">Bridging the Skill Gap</p>
+        <div class="services-grid">
+            <!-- PLC & Industrial Automation -->
+            <div class="service-card">
+                <div class="service-icon">🏭</div>
+                <h3>PLC & Industrial Automation</h3>
+                <ul>
+                    <li>Basic to Advanced PLC Programming</li>
+                    <li>HMI & SCADA Development</li>
+                    <li>Industrial Networking & Troubleshooting</li>
+                    <li>Motor Control & Industry 4.0 Concepts</li>
+                </ul>
+                <a href="training.php" class="service-link">
+                    Learn More →
+                </a>
+            </div>
+
+            <!-- Embedded Systems -->
+            <div class="service-card">
+                <div class="service-icon">🔌</div>
+                <h3>Embedded Systems</h3>
+                <ul>
+                    <li>Microcontroller Programming (8051, PIC, Arduino, ESP32, STM32, Raspberry Pi)</li>
+                    <li>IoT Development (Device-to-Cloud)</li>
+                    <li>Sensor & Actuator Interfacing</li>
+                    <li>Firmware Development & Debugging</li>
+                </ul>
+                <a href="training.php" class="service-link">
+                    Learn More →
+                </a>
+            </div>
+
+            <!-- Artificial Intelligence -->
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Artificial Intelligence</h3>
+                <ul>
+                    <li>AI & Machine Learning Fundamentals</li>
+                    <li>Deep Learning & Computer Vision (OpenCV)</li>
+                    <li>Natural Language Processing Basics</li>
+                    <li>Edge AI & Deployment</li>
+                </ul>
+                <a href="training.php" class="service-link">
+                    Learn More →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Support Section -->
+    <section class="project-support">
+        <h2 class="section-title">Comprehensive Project Support</h2>
+        <div class="support-grid">
+            <div class="support-card">
+                <h3>Project Center Expertise</h3>
+                <ul>
+                    <li>Guidance for Diploma, B.E./B.Tech., M.Tech. students</li>
+                    <li>Industry-sponsored project development</li>
+                    <li>Hardware & Software Prototyping</li>
+                    <li>Testing, Debugging & Optimization</li>
+                    <li>Documentation & Presentation Skills support</li>
+                </ul>
+            </div>
+            <div class="support-card">
+                <h3>Target Audience</h3>
+                <ul>
+                    <li>Engineering Students (Diploma, UG, PG) from various colleges</li>
+                    <li>ITI & Vocational Training Students</li>
+                    <li>Working Professionals seeking to upskill/reskill</li>
+                    <li>Local Industries in Baramati (manufacturing, agriculture, SMEs)</li>
+                    <li>Startups, Entrepreneurs, Hobbyists & Innovators</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Section -->
+    <section class="usp">
+        <h2 class="section-title">Our Unique Selling Proposition</h2>
+        <div class="usp-grid">
+            <div class="usp-card">
+                <div class="usp-icon">👨‍💼</div>
+                <h3>Deep Expertise</h3>
+                <p>Six highly experienced engineers, two specialists per domain.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🔧</div>
+                <h3>Hands-on Learning</h3>
+                <p>Project-driven, practical sessions for immediate skill application.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">📚</div>
+                <h3>Industry-Ready Curriculum</h3>
+                <p>Continuously updated, aligned with market demands.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🏢</div>
+                <h3>State-of-the-Art Labs</h3>
+                <p>Equipped with industry-standard PLCs, embedded boards, and GPUs.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🌾</div>
+                <h3>Local Industry Focus</h3>
+                <p>Solutions tailored to Baramati's unique industrial and agricultural needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Revenue Model Section -->
+    <section class="revenue-model">
+        <h2 class="section-title">Robust Revenue & Operational Model</h2>
+        <div class="revenue-content">
+            <div class="revenue-grid">
+                <div class="revenue-card">
+                    <h3>Revenue Model</h3>
+                    <ul>
+                        <li>Course Fees (short-term, advanced, corporate)</li>
+                        <li>Workshop & Seminar Fees</li>
+                        <li>Academic Project Consultation Fees</li>
+                        <li>Industrial Project & Consultancy Fees</li>
+                        <li>Project Kit Sales</li>
+                        <li>Institutional Tie-ups</li>
+                    </ul>
+                </div>
+                <div class="revenue-card">
+                    <h3>Operational Plan</h3>
+                    <ul>
+                        <li>Modern Classrooms & Labs (PLC, Embedded, AI)</li>
+                        <li>Dedicated Team Structure with defined roles</li>
+                        <li>Collaborative Curriculum Development</li>
+                        <li>Structured Project Management</li>
+                        <li>Efficient Supply Chain & Inventory</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision">
+        <h2 class="section-title">Future Vision: Growth & Diversification</h2>
+        <div class="vision-content">
+            <p>Looking ahead, Bit Electronic System plans to expand its reach and offerings, solidifying its position as a leader in technological education and innovation.</p>
+            
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <h3>Online/Hybrid Training</h3>
+                    <p>Expand reach beyond Baramati.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>IIoT & Smart Factory Lab</h3>
+                    <p>Dedicated advanced lab for industrial solutions.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>R&D & Product Development</h3>
+                    <p>Internal division for commercializing niche products.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>Incubation Center</h3>
+                    <p>Support promising student/alumni startups.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>Expanded Geographical Reach</h3>
+                    <p>Centers in other industrial hubs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Expert Engineers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Core Domains</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Practical Learning</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Address</strong><br>
+                            BIT ELECTRONIC SYSTEM<br>
+                            Baramati, Maharashtra, India
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Phone</strong><br>
+                            +91 98765 43210
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email</strong><br>
+                            info@bitelectronicsystem.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Working Hours</strong><br>
+                            Mon-Sat: 9:00 AM - 6:00 PM
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://wa.me/919876543210" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://facebook.com/bitelectronicsystem" class="social-link" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/bitelectronicsystem" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/bitelectronicsystem" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <h3>Our Location</h3>
+                <div class="map-placeholder">
+                    <p>📍 Map Location - Baramati, Maharashtra</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="index.php" class="footer-logo">BIT ELECTRONIC SYSTEM</a>
+            <div class="copyright">
+                &copy; 2024 BIT ELECTRONIC SYSTEM. Empowering Tomorrow's Innovators.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const prevBtn = document.querySelector('.carousel-arrow.prev');
+            const nextBtn = document.querySelector('.carousel-arrow.next');
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Function to show a specific slide
+            function showSlide(index) {
+                // Remove active class from all slides and indicators
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // Add active class to current slide and indicator
+                slides[index].classList.add('active');
+                indicators[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Function to show next slide
+            function nextSlide() {
+                let nextSlide = (currentSlide + 1) % slideCount;
+                showSlide(nextSlide);
+            }
+            
+            // Function to show previous slide
+            function prevSlide() {
+                let prevSlide = (currentSlide - 1 + slideCount) % slideCount;
+                showSlide(prevSlide);
+            }
+            
+            // Auto-advance slides every 5 seconds
+            function autoAdvance() {
+                nextSlide();
+            }
+            
+            // Set up auto-advance
+            let slideInterval = setInterval(autoAdvance, 5000);
+            
+            // Add click event to indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    clearInterval(slideInterval);
+                    showSlide(index);
+                    slideInterval = setInterval(autoAdvance, 5000);
+                });
+            });
+            
+            // Add click events to arrow buttons
+            prevBtn.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                prevSlide();
+                slideInterval = setInterval(autoAdvance, 5000);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                nextSlide();
+                slideInterval = setInterval(autoAdvance, 5000);
+            });
+            
+            // Pause auto-advance on hover
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            carouselContainer.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(autoAdvance, 5000);
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    clearInterval(slideInterval);
+                    prevSlide();
+                    slideInterval = setInterval(autoAdvance, 5000);
+                } else if (e.key === 'ArrowRight') {
+                    clearInterval(slideInterval);
+                    nextSlide();
+                    slideInterval = setInterval(autoAdvance, 5000);
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Pause animation on hover for logos
+        const logosTrack = document.querySelector('.logos-track');
+        logosTrack.addEventListener('mouseenter', () => {
+            logosTrack.style.animationPlayState = 'paused';
+        });
+        
+        logosTrack.addEventListener('mouseleave', () => {
+            logosTrack.style.animationPlayState = 'running';
+        });
+
+        // Highlight current page in navigation
+        function setActivePage() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.php';
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            // Update main navigation
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Set active page on load
+        document.addEventListener('DOMContentLoaded', setActivePage);
+    </script>
+</body>
+</html>
